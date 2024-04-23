@@ -49,4 +49,57 @@ public class ContextV1Test {
         ContextV1 context2 = new ContextV1(strategyLogic2);
         context2.execute();
     }
+
+    /**
+     * 전략 패턴, 익명 내부 클래스 사용 예제 1
+     */
+    @Test
+    void strategyV2() {
+        Strategy strategyLogic1 = () -> log.info("비즈니스 로직1 실행");
+
+        log.info("strategyLogic1 = {}", strategyLogic1.getClass());
+        ContextV1 context1 = new ContextV1(strategyLogic1);
+        context1.execute();
+
+        Strategy strategyLogic2 = () -> log.info("비즈니스 로직2 실행");
+
+        log.info("strategyLogic2 = {}", strategyLogic2.getClass());
+        ContextV1 context2 = new ContextV1(strategyLogic2);
+        context2.execute();
+    }
+
+    /**
+     * 전략 패턴, 익명 내부 클래스 사용 예제 2
+     */
+    @Test
+    void strategyV3() {
+        ContextV1 context1 = new ContextV1(new Strategy() {
+            @Override
+            public void call() {
+                log.info("비즈니스 로직1 실행");
+            }
+        });
+        context1.execute();
+
+        ContextV1 context2 = new ContextV1(new Strategy() {
+            @Override
+            public void call() {
+                log.info("비즈니스 로직2 실행");
+            }
+        });
+        context2.execute();
+    }
+
+    /**
+     * 전략 패턴, 익명 내부 클래스 사용 예제 3
+     * 람다 사용: 인터페이스에 메서드가 하나일 경우 람다로 변환 가능
+     */
+    @Test
+    void strategyV4() {
+        ContextV1 context1 = new ContextV1(() -> log.info("비즈니스 로직1 실행"));
+        context1.execute();
+
+        ContextV1 context2 = new ContextV1(() -> log.info("비즈니스 로직2 실행"));
+        context2.execute();
+    }
 }
